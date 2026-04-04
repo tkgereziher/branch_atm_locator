@@ -6,6 +6,8 @@ import '../../presentation/screens/auth/signup_screen.dart';
 import '../../presentation/screens/home/home_screen.dart';
 import '../../presentation/screens/details/details_screen.dart';
 
+import '../../presentation/screens/home/map_view_screen.dart';
+
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/',
@@ -29,6 +31,10 @@ class AppRouter {
       GoRoute(
         path: '/home',
         builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: '/map-view',
+        builder: (context, state) => const MapViewScreen(),
       ),
       GoRoute(
         path: '/details/:id',

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/constants/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,11 +15,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text("Bank & ATM Locator"),
+        title: const Text("Bank & ATM Locator", style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none_rounded),
+            icon: const Icon(Icons.notifications_none_rounded, color: AppColors.primary),
             onPressed: () {},
           ),
         ],
@@ -31,12 +36,15 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4)),
+                ],
               ),
               child: const TextField(
                 decoration: InputDecoration(
-                  icon: Icon(Icons.search_rounded),
+                  icon: Icon(Icons.search_rounded, color: AppColors.primary),
                   hintText: "Search for city, neighborhood...",
                   border: InputBorder.none,
                 ),
@@ -63,27 +71,31 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Recommended",
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  style: TextStyle(
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 TextButton(onPressed: () {}, child: const Text("See All")),
               ],
             ),
             const SizedBox(height: 16),
-            _buildLocationCard("CBE - Main Branch", "1.2 km away", Icons.account_balance_rounded),
+            _buildLocationCard(context, "cbe-1", "CBE - Main Branch", "1.2 km away", Icons.account_balance_rounded),
             const SizedBox(height: 16),
-            _buildLocationCard("Awash ATM - Bole", "0.5 km away", Icons.atm_rounded),
+            _buildLocationCard(context, "awash-1", "Awash ATM - Bole", "0.5 km away", Icons.atm_rounded),
             const SizedBox(height: 16),
-            _buildLocationCard("Dashen Bank - Kazanchis", "2.1 km away", Icons.account_balance_rounded),
+            _buildLocationCard(context, "dashen-1", "Dashen Bank - Kazanchis", "2.1 km away", Icons.account_balance_rounded),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.textSecondary,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.favorite_rounded), label: "Favorites"),
@@ -91,10 +103,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () => context.push('/map-view'),
         icon: const Icon(Icons.map_rounded),
         label: const Text("Map View"),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
       ),
     );
@@ -104,14 +116,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       margin: const EdgeInsets.only(right: 12),
       child: FilterChip(
-        avatar: Icon(icon, color: isSelected ? Colors.white : Colors.grey, size: 20),
+        avatar: Icon(icon, color: isSelected ? Colors.white : AppColors.textSecondary, size: 20),
         label: Text(label),
         selected: isSelected,
         onSelected: (bool selected) {},
-        backgroundColor: Colors.grey[100],
-        selectedColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Colors.white,
+        selectedColor: AppColors.primary,
         labelStyle: TextStyle(
-          color: isSelected ? Colors.white : Colors.black87,
+          color: isSelected ? Colors.white : AppColors.textPrimary,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
@@ -119,23 +131,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildLocationCard(String name, String distance, IconData icon) {
+  Widget _buildLocationCard(BuildContext context, String id, String name, String distance, IconData icon) {
     return Card(
       elevation: 0,
-      color: Colors.grey[50],
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey[200]!),
+        side: const BorderSide(color: AppColors.background),
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-          child: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 20),
+          backgroundColor: AppColors.primary.withOpacity(0.1),
+          child: Icon(icon, color: AppColors.primary, size: 20),
         ),
-        title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(distance),
-        trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16),
-        onTap: () {},
+        title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        subtitle: Text(distance, style: const TextStyle(color: AppColors.textSecondary)),
+        trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: AppColors.divider),
+        onTap: () => context.push('/details/$id'),
       ),
     );
   }
