@@ -1,0 +1,57 @@
+
+def flutterVersionCode = 9
+def flutterVersionName = "1.0.9"
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'dev.flutter.flutter-gradle-plugin'
+
+android {
+    namespace 'com.example.branch_atm_locator' 
+    ndkVersion "27.0.12077973"
+    compileSdkVersion 36
+
+    defaultConfig {
+        applicationId "com.example.branch_atm_locator"
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 36
+        versionCode flutterVersionCode
+        versionName flutterVersionName
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            crunchPngs false
+            minifyEnabled true
+            shrinkResources true
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+repositories {
+    google()
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation "com.squareup.okhttp3:okhttp:4.12.0"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.5"
+}

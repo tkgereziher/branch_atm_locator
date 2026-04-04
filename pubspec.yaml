@@ -43,6 +43,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   go_router: ^17.2.0
+  google_maps_flutter: ^2.14.2
 
 dev_dependencies:
   flutter_test:
