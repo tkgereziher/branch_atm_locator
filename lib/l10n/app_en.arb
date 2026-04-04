@@ -1,0 +1,15 @@
+{
+  "appTitle": "Branch & ATM Locator",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "A welcome message"
+  },
+  "search": "Search",
+  "branches": "Branches",
+  "atms": "ATMs",
+  "settings": "Settings",
+  "language": "Language"
+}
