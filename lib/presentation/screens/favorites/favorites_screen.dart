@@ -92,33 +92,45 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         ),
       );
     } else if (_favorites.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.favorite_border_rounded, size: 80, color: AppColors.textSecondary.withOpacity(0.3)),
-            const SizedBox(height: 16),
-            const Text(
-              "No favorites yet",
-              style: TextStyle(fontSize: 18, color: AppColors.textSecondary, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              "Branches and ATMs you save will appear here.",
-              style: TextStyle(color: AppColors.textSecondary),
+      return RefreshIndicator(
+        onRefresh: _loadFavorites,
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverFillRemaining(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.favorite_border_rounded, size: 80, color: AppColors.textSecondary.withOpacity(0.3)),
+                  const SizedBox(height: 16),
+                  const Text(
+                    "No favorites yet",
+                    style: TextStyle(fontSize: 18, color: AppColors.textSecondary, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "Branches and ATMs you save will appear here.",
+                    style: TextStyle(color: AppColors.textSecondary),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       );
     } else {
-      return ListView.separated(
-        padding: const EdgeInsets.all(20.0),
-        itemCount: _favorites.length,
-        separatorBuilder: (context, index) => const SizedBox(height: 16),
-        itemBuilder: (context, index) {
-          final fav = _favorites[index];
-          return _buildFavoriteCard(context, fav);
-        },
+      return RefreshIndicator(
+        onRefresh: _loadFavorites,
+        child: ListView.separated(
+          padding: const EdgeInsets.all(20.0),
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: _favorites.length,
+          separatorBuilder: (context, index) => const SizedBox(height: 16),
+          itemBuilder: (context, index) {
+            final fav = _favorites[index];
+            return _buildFavoriteCard(context, fav);
+          },
+        ),
       );
     }
   }

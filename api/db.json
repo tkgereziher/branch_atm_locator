@@ -48,8 +48,8 @@
       "bank": "CBE",
       "type": "Branches",
       "address": "Churchill Avenue, Kazanchis, Addis Ababa",
-      "latitude": 9.0200,
-      "longitude": 38.7400,
+      "latitude": 9.02,
+      "longitude": 38.74,
       "distance": "1.2 km away",
       "status": "Open Now",
       "phone": "+251-11-551-5004",
@@ -72,8 +72,8 @@
       "bank": "Awash",
       "type": "ATMs",
       "address": "Africa Avenue, Bole, Addis Ababa",
-      "latitude": 9.0100,
-      "longitude": 38.7600,
+      "latitude": 9.01,
+      "longitude": 38.76,
       "distance": "0.5 km away",
       "status": "Active",
       "phone": null,
@@ -95,8 +95,8 @@
       "bank": "Dashen",
       "type": "Branches",
       "address": "Churchill Avenue, Kazanchis, Addis Ababa",
-      "latitude": 9.0250,
-      "longitude": 38.7550,
+      "latitude": 9.025,
+      "longitude": 38.755,
       "distance": "2.1 km away",
       "status": "Open Now",
       "phone": "+251-11-557-7755",
@@ -118,8 +118,8 @@
       "bank": "CBE",
       "type": "ATMs",
       "address": "Piazza, Addis Ababa",
-      "latitude": 9.0350,
-      "longitude": 38.7450,
+      "latitude": 9.035,
+      "longitude": 38.745,
       "distance": "0.8 km away",
       "status": "Active",
       "phone": null,
@@ -135,6 +135,46 @@
       }
     }
   ],
-  "reports": [],
-  "favorites": []
+  "reports": [
+    {
+      "locationId": "cbe-1",
+      "locationName": "CBE - Main Branch",
+      "issueType": "ATM out of cash",
+      "details": null,
+      "createdAt": "2026-04-05T11:46:01.689188",
+      "id": "sbivjkj9sws"
+    }
+  ],
+  "favorites": [
+    {
+      "location": {
+        "id": "cbe-1",
+        "name": "CBE - Main Branch",
+        "bank": "CBE",
+        "type": "Branches",
+        "address": "Churchill Avenue, Kazanchis, Addis Ababa",
+        "latitude": 9.02,
+        "longitude": 38.74,
+        "distance": "1.2 km away",
+        "status": "Open Now",
+        "phone": "+251-11-551-5004",
+        "imageUrl": "https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg",
+        "services": [
+          "Cash Withdrawal & Deposit",
+          "Foreign Currency Exchange",
+          "Card Issuance",
+          "Loan & Mortgages Advisory"
+        ],
+        "hours": {
+          "weekdays": "8:00 AM - 6:00 PM",
+          "saturday": "8:00 AM - 12:00 PM",
+          "sunday": "Closed"
+        }
+      },
+      "addedAt": "2026-04-05T11:39:10.883854",
+      "id": "RSUz_S0Yrrc"
+    }
+  ],
+  "users": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

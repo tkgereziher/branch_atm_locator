@@ -20,7 +20,7 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<ApiClient>(() => ApiClient(sl()));
 
   // Services
-  sl.registerLazySingleton<UserService>(() => UserService(sl()));
+  sl.registerLazySingleton<UserService>(() => UserService(sl(), sl()));
   sl.registerLazySingleton<LocationService>(() => LocationService(sl()));
   sl.registerLazySingleton<ReportService>(() => ReportService(sl()));
   sl.registerLazySingleton<BankService>(() => BankService(sl()));
