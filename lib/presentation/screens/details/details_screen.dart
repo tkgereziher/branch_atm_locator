@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -34,8 +36,8 @@ class DetailsScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColors.primary.withOpacity(0.05),
-                image: const DecorationImage(
-                  image: NetworkImage('https://via.placeholder.com/600x400'), // Placeholder for real image
+                image: DecorationImage(
+                  image: NetworkImage('https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -61,14 +63,14 @@ class DetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          "CBE - Main Branch",
+                          id.contains('cbe') ? "CBE - Main Branch" : (id.contains('awash') ? "Awash ATM - Bole" : "Dashen Bank - Kazanchis"),
                           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: AppColors.primary,
                           ),
                         ),
                       ),
-                      _buildStatusChip("Open Now", AppColors.success),
+                      _buildStatusChip(id.contains('atm') ? "Active" : "Open Now", AppColors.success),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -77,10 +79,24 @@ class DetailsScreen extends StatelessWidget {
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: const Icon(Icons.location_on_rounded, color: AppColors.error),
-                    title: const Text(" Churchill Avenue, Addis Ababa, Ethiopia"),
-                    subtitle: const Text("1.2 km away", style: TextStyle(color: AppColors.textSecondary)),
+                    title: Text(id.contains('bole') ? "Africa Avenue, Bole, Addis Ababa" : " Churchill Avenue, Kazanchis, Addis Ababa"),
+                    subtitle: Text(id.contains('dashen') ? "2.1 km away" : "1.2 km away", style: TextStyle(color: AppColors.textSecondary)),
                     trailing: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final lat = id.contains('bole') ? 9.0100 : 9.0200;
+                        final lng = id.contains('bole') ? 38.7600 : 38.7400;
+                        final googleMapsUrl = Uri.parse("google.navigation:q=$lat,$lng");
+                        final appleMapsUrl = Uri.parse("https://maps.apple.com/?q=$lat,$lng");
+                        final browserUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
+
+                        if (await canLaunchUrl(googleMapsUrl)) {
+                          await launchUrl(googleMapsUrl);
+                        } else if (await canLaunchUrl(appleMapsUrl)) {
+                          await launchUrl(appleMapsUrl);
+                        } else {
+                          await launchUrl(browserUrl, mode: LaunchMode.externalApplication);
+                        }
+                      },
                       icon: const Icon(Icons.directions_rounded),
                       label: const Text("Go"),
                       style: ElevatedButton.styleFrom(
@@ -134,7 +150,10 @@ class DetailsScreen extends StatelessWidget {
                   // Report Issue Button
                   Center(
                     child: TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        final name = id.contains('cbe') ? "CBE - Main Branch" : (id.contains('awash') ? "Awash ATM - Bole" : "Dashen Bank - Kazanchis");
+                        GoRouter.of(context).push('/report/$id/$name');
+                      },
                       icon: const Icon(Icons.report_problem_rounded, color: AppColors.warning),
                       label: const Text("Report an issue", style: TextStyle(color: AppColors.warning)),
                     ),

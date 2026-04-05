@@ -11,6 +11,24 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  String _selectedCategory = "All";
+  String _selectedBank = "All Banks";
+
+  final List<String> _banks = ["All Banks", "CBE", "Awash", "Dashen", "Abyssinia", "Zemen"];
+  final List<Map<String, dynamic>> _allLocations = [
+    {"id": "cbe-1", "name": "CBE - Main Branch", "distance": "1.2 km away", "type": "Branches", "bank": "CBE", "icon": Icons.account_balance_rounded},
+    {"id": "awash-1", "name": "Awash ATM - Bole", "distance": "0.5 km away", "type": "ATMs", "bank": "Awash", "icon": Icons.atm_rounded},
+    {"id": "dashen-1", "name": "Dashen Bank - Kazanchis", "distance": "2.1 km away", "type": "Branches", "bank": "Dashen", "icon": Icons.account_balance_rounded},
+    {"id": "cbe-2", "name": "CBE ATM - Piazza", "distance": "0.8 km away", "type": "ATMs", "bank": "CBE", "icon": Icons.atm_rounded},
+  ];
+
+  List<Map<String, dynamic>> get _filteredLocations {
+    return _allLocations.where((loc) {
+      final categoryMatch = _selectedCategory == "All" || loc['type'] == _selectedCategory;
+      final bankMatch = _selectedBank == "All Banks" || loc['bank'] == _selectedBank;
+      return categoryMatch && bankMatch;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +76,26 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _buildCategoryFilter(Icons.account_balance_rounded, "Branches", true),
-                  _buildCategoryFilter(Icons.atm_rounded, "ATMs", false),
-                  _buildCategoryFilter(Icons.map_rounded, "Nearby", false),
-                  _buildCategoryFilter(Icons.accessible_rounded, "Accessible", false),
+                  _buildCategoryFilter(Icons.all_inclusive_rounded, "All"),
+                  _buildCategoryFilter(Icons.account_balance_rounded, "Branches"),
+                  _buildCategoryFilter(Icons.atm_rounded, "ATMs"),
                 ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Bank Selector
+            const Text(
+              "Select Bank",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 40,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _banks.length,
+                itemBuilder: (context, index) => _buildBankChip(_banks[index]),
               ),
             ),
             const SizedBox(height: 32),
@@ -71,9 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Recommended",
-                  style: TextStyle(
+                Text(
+                  _selectedCategory == "All" ? "Recommended" : "$_selectedCategory Nearby",
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
@@ -83,11 +116,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(height: 16),
-            _buildLocationCard(context, "cbe-1", "CBE - Main Branch", "1.2 km away", Icons.account_balance_rounded),
-            const SizedBox(height: 16),
-            _buildLocationCard(context, "awash-1", "Awash ATM - Bole", "0.5 km away", Icons.atm_rounded),
-            const SizedBox(height: 16),
-            _buildLocationCard(context, "dashen-1", "Dashen Bank - Kazanchis", "2.1 km away", Icons.account_balance_rounded),
+            
+            if (_filteredLocations.isEmpty)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(40.0),
+                  child: Text("No locations found for these filters."),
+                ),
+              )
+            else
+              ..._filteredLocations.map((loc) => Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: _buildLocationCard(context, loc['id'], loc['name'], loc['distance'], loc['icon']),
+              )),
           ],
         ),
       ),
@@ -112,14 +153,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildCategoryFilter(IconData icon, String label, bool isSelected) {
+  Widget _buildCategoryFilter(IconData icon, String label) {
+    bool isSelected = _selectedCategory == label;
     return Container(
       margin: const EdgeInsets.only(right: 12),
       child: FilterChip(
         avatar: Icon(icon, color: isSelected ? Colors.white : AppColors.textSecondary, size: 20),
         label: Text(label),
         selected: isSelected,
-        onSelected: (bool selected) {},
+        onSelected: (bool selected) {
+          setState(() => _selectedCategory = label);
+        },
         backgroundColor: Colors.white,
         selectedColor: AppColors.primary,
         labelStyle: TextStyle(
@@ -131,13 +175,37 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildBankChip(String bankName) {
+    bool isSelected = _selectedBank == bankName;
+    return GestureDetector(
+      onTap: () => setState(() => _selectedBank = bankName),
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.secondary : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: isSelected ? AppColors.secondary : AppColors.divider),
+        ),
+        child: Text(
+          bankName,
+          style: TextStyle(
+            color: isSelected ? Colors.white : AppColors.textPrimary,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildLocationCard(BuildContext context, String id, String name, String distance, IconData icon) {
     return Card(
       elevation: 0,
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: AppColors.background),
+        side: const BorderSide(color: AppColors.divider),
       ),
       child: ListTile(
         leading: CircleAvatar(

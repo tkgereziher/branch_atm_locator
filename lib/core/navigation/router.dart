@@ -7,6 +7,7 @@ import '../../presentation/screens/home/home_screen.dart';
 import '../../presentation/screens/details/details_screen.dart';
 
 import '../../presentation/screens/home/map_view_screen.dart';
+import '../../presentation/screens/details/report_issue_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -41,6 +42,14 @@ class AppRouter {
         builder: (context, state) {
           final id = state.pathParameters['id']!;
           return DetailsScreen(id: id);
+        },
+      ),
+      GoRoute(
+        path: '/report/:id/:name',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          final name = state.pathParameters['name']!;
+          return ReportIssueScreen(locationId: id, locationName: name);
         },
       ),
     ],
