@@ -5,7 +5,6 @@
       "name": "CBE",
       "fullName": "Commercial Bank of Ethiopia",
       "colorHex": "#1565C0",
-      "logoUrl": null,
       "website": "https://www.combanketh.et"
     },
     {
@@ -13,7 +12,6 @@
       "name": "Awash",
       "fullName": "Awash Bank",
       "colorHex": "#E65100",
-      "logoUrl": null,
       "website": "https://www.awashbank.com"
     },
     {
@@ -21,7 +19,6 @@
       "name": "Dashen",
       "fullName": "Dashen Bank",
       "colorHex": "#2E7D32",
-      "logoUrl": null,
       "website": "https://www.dashenbanksc.com"
     },
     {
@@ -29,7 +26,6 @@
       "name": "Abyssinia",
       "fullName": "Bank of Abyssinia",
       "colorHex": "#6A1B9A",
-      "logoUrl": null,
       "website": "https://www.bankofabyssinia.com"
     },
     {
@@ -37,7 +33,6 @@
       "name": "Zemen",
       "fullName": "Zemen Bank",
       "colorHex": "#00838F",
-      "logoUrl": null,
       "website": "https://www.zemenbank.com"
     }
   ],
