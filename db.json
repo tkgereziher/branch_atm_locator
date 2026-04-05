@@ -27,13 +27,6 @@
       "fullName": "Bank of Abyssinia",
       "colorHex": "#6A1B9A",
       "website": "https://www.bankofabyssinia.com"
-    },
-    {
-      "id": "zemen",
-      "name": "Zemen",
-      "fullName": "Zemen Bank",
-      "colorHex": "#00838F",
-      "website": "https://www.zemenbank.com"
     }
   ],
   "locations": [
