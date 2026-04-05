@@ -6,6 +6,7 @@ import '../../data/services/user_service.dart';
 import '../../data/services/location_service.dart';
 import '../../data/services/report_service.dart';
 import '../../data/services/bank_service.dart';
+import '../../data/services/favorite_service.dart';
 
 final sl = GetIt.instance;
 
@@ -23,4 +24,5 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<LocationService>(() => LocationService(sl()));
   sl.registerLazySingleton<ReportService>(() => ReportService(sl()));
   sl.registerLazySingleton<BankService>(() => BankService(sl()));
+  sl.registerLazySingleton<FavoriteService>(() => FavoriteService(sl()));
 }

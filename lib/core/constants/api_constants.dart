@@ -10,4 +10,5 @@ class ApiConstants {
   static const String locationsEndpoint = '/locations';
   static const String reportsEndpoint = '/reports';
   static const String banksEndpoint = '/banks';
+  static const String favoritesEndpoint = '/favorites';
 }
