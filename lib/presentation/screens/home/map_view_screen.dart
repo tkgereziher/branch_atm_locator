@@ -79,29 +79,30 @@ class _MapViewScreenState extends State<MapViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
+        backgroundColor: Colors.white,
         elevation: 0,
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.primary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () => context.pop(),
         ),
         title: TextField(
           controller: _searchController,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: AppColors.textPrimary),
           decoration: InputDecoration(
             hintText: "Search branch or ATM...",
-            hintStyle: const TextStyle(color: Colors.white70),
+            hintStyle: const TextStyle(color: AppColors.textSecondary),
             border: InputBorder.none,
+            prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary),
             suffixIcon: _searchQuery.isNotEmpty 
                 ? IconButton(
-                    icon: const Icon(Icons.clear_rounded, color: Colors.white),
+                    icon: const Icon(Icons.clear_rounded, color: AppColors.primary),
                     onPressed: () {
                       _searchController.clear();
                       setState(() => _searchQuery = "");
                     },
                   )
-                : const Icon(Icons.search_rounded, color: Colors.white),
+                : null,
           ),
           onChanged: (val) => setState(() => _searchQuery = val),
         ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/di/injection_container.dart';
+import '../../../data/models/report_model.dart';
+import '../../../data/services/report_service.dart';
 
 class ReportIssueScreen extends StatefulWidget {
   final String locationId;
@@ -18,6 +21,7 @@ class ReportIssueScreen extends StatefulWidget {
 
 class _ReportIssueScreenState extends State<ReportIssueScreen> {
   String? _selectedIssue;
+  bool _isSubmitting = false;
   final TextEditingController _detailsController = TextEditingController();
 
   final List<String> _issueTypes = [
@@ -35,12 +39,18 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: const Text("Report an Issue", style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        foregroundColor: AppColors.primary,
         elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          onPressed: () => context.pop(),
+        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -105,37 +115,61 @@ class _ReportIssueScreenState extends State<ReportIssueScreen> {
             
             // Submit Button
             ElevatedButton(
-              onPressed: _selectedIssue == null ? null : () {
-                // Show success dialog
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text("Report Submitted"),
-                    content: const Text("Thank you for your feedback. We will investigate this issue immediately."),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          // Pop dialog and the report screen
-                          context.pop(); 
-                          context.pop();
-                        },
-                        child: const Text("OK"),
-                      ),
-                    ],
-                  ),
-                );
-              },
+              onPressed: (_selectedIssue == null || _isSubmitting) ? null : _submitReport,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 56),
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
-              child: const Text("Submit Report", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: _isSubmitting
+                ? const SizedBox(
+                    height: 24, width: 24,
+                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                  )
+                : const Text("Submit Report", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
           ],
         ),
       ),
+    ),
+  );
+}
+
+Future<void> _submitReport() async {
+  setState(() => _isSubmitting = true);
+  try {
+    final report = ReportModel(
+      locationId: widget.locationId,
+      locationName: widget.locationName,
+      issueType: _selectedIssue!,
+      details: _detailsController.text.trim().isEmpty ? null : _detailsController.text.trim(),
+      createdAt: DateTime.now().toIso8601String(),
     );
+    await sl<ReportService>().submitReport(report);
+    if (mounted) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Report Submitted"),
+          content: const Text("Thank you for your feedback. We will investigate this issue immediately."),
+          actions: [
+            TextButton(
+              onPressed: () { context.pop(); context.pop(); },
+              child: const Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
+  } catch (e) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to submit report. Please try again.')),
+      );
+    }
+  } finally {
+    if (mounted) setState(() => _isSubmitting = false);
   }
+}
 }

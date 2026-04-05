@@ -3,6 +3,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../api/api_client.dart';
 import '../services/secure_storage_service.dart';
 import '../../data/services/user_service.dart';
+import '../../data/services/location_service.dart';
+import '../../data/services/report_service.dart';
+import '../../data/services/bank_service.dart';
 
 final sl = GetIt.instance;
 
@@ -17,7 +20,7 @@ Future<void> initDependencies() async {
 
   // Services
   sl.registerLazySingleton<UserService>(() => UserService(sl()));
-
-  // Use Cases
-  // sl.registerLazySingleton(() => LoginUseCase(sl()));
+  sl.registerLazySingleton<LocationService>(() => LocationService(sl()));
+  sl.registerLazySingleton<ReportService>(() => ReportService(sl()));
+  sl.registerLazySingleton<BankService>(() => BankService(sl()));
 }
