@@ -1,0 +1,180 @@
+{
+  "banks": [
+    {
+      "id": "cbe",
+      "name": "CBE",
+      "fullName": "Commercial Bank of Ethiopia",
+      "colorHex": "#1565C0",
+      "logoUrl": null,
+      "website": "https://www.combanketh.et"
+    },
+    {
+      "id": "awash",
+      "name": "Awash",
+      "fullName": "Awash Bank",
+      "colorHex": "#E65100",
+      "logoUrl": null,
+      "website": "https://www.awashbank.com"
+    },
+    {
+      "id": "dashen",
+      "name": "Dashen",
+      "fullName": "Dashen Bank",
+      "colorHex": "#2E7D32",
+      "logoUrl": null,
+      "website": "https://www.dashenbanksc.com"
+    },
+    {
+      "id": "abyssinia",
+      "name": "Abyssinia",
+      "fullName": "Bank of Abyssinia",
+      "colorHex": "#6A1B9A",
+      "logoUrl": null,
+      "website": "https://www.bankofabyssinia.com"
+    },
+    {
+      "id": "zemen",
+      "name": "Zemen",
+      "fullName": "Zemen Bank",
+      "colorHex": "#00838F",
+      "logoUrl": null,
+      "website": "https://www.zemenbank.com"
+    }
+  ],
+  "locations": [
+    {
+      "id": "cbe-1",
+      "name": "CBE - Main Branch",
+      "bank": "CBE",
+      "type": "Branches",
+      "address": "Churchill Avenue, Kazanchis, Addis Ababa",
+      "latitude": 9.02,
+      "longitude": 38.74,
+      "distance": "1.2 km away",
+      "status": "Open Now",
+      "phone": "+251-11-551-5004",
+      "imageUrl": "https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg",
+      "services": [
+        "Cash Withdrawal & Deposit",
+        "Foreign Currency Exchange",
+        "Card Issuance",
+        "Loan & Mortgages Advisory"
+      ],
+      "hours": {
+        "weekdays": "8:00 AM - 6:00 PM",
+        "saturday": "8:00 AM - 12:00 PM",
+        "sunday": "Closed"
+      }
+    },
+    {
+      "id": "awash-1",
+      "name": "Awash ATM - Bole",
+      "bank": "Awash",
+      "type": "ATMs",
+      "address": "Africa Avenue, Bole, Addis Ababa",
+      "latitude": 9.01,
+      "longitude": 38.76,
+      "distance": "0.5 km away",
+      "status": "Active",
+      "phone": null,
+      "imageUrl": "https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg",
+      "services": [
+        "Cash Withdrawal",
+        "Balance Inquiry",
+        "Mini Statement"
+      ],
+      "hours": {
+        "weekdays": "24 Hours",
+        "saturday": "24 Hours",
+        "sunday": "24 Hours"
+      }
+    },
+    {
+      "id": "dashen-1",
+      "name": "Dashen Bank - Kazanchis",
+      "bank": "Dashen",
+      "type": "Branches",
+      "address": "Churchill Avenue, Kazanchis, Addis Ababa",
+      "latitude": 9.025,
+      "longitude": 38.755,
+      "distance": "2.1 km away",
+      "status": "Open Now",
+      "phone": "+251-11-557-7755",
+      "imageUrl": "https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg",
+      "services": [
+        "Cash Withdrawal & Deposit",
+        "Card Issuance",
+        "Loan Advisory"
+      ],
+      "hours": {
+        "weekdays": "8:30 AM - 5:30 PM",
+        "saturday": "9:00 AM - 1:00 PM",
+        "sunday": "Closed"
+      }
+    },
+    {
+      "id": "cbe-2",
+      "name": "CBE ATM - Piazza",
+      "bank": "CBE",
+      "type": "ATMs",
+      "address": "Piazza, Addis Ababa",
+      "latitude": 9.035,
+      "longitude": 38.745,
+      "distance": "0.8 km away",
+      "status": "Active",
+      "phone": null,
+      "imageUrl": "https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg",
+      "services": [
+        "Cash Withdrawal",
+        "Balance Inquiry"
+      ],
+      "hours": {
+        "weekdays": "24 Hours",
+        "saturday": "24 Hours",
+        "sunday": "24 Hours"
+      }
+    }
+  ],
+  "reports": [
+    {
+      "locationId": "cbe-1",
+      "locationName": "CBE - Main Branch",
+      "issueType": "ATM out of cash",
+      "details": null,
+      "createdAt": "2026-04-05T11:46:01.689188",
+      "id": "sbivjkj9sws"
+    }
+  ],
+  "favorites": [
+    {
+      "location": {
+        "id": "cbe-1",
+        "name": "CBE - Main Branch",
+        "bank": "CBE",
+        "type": "Branches",
+        "address": "Churchill Avenue, Kazanchis, Addis Ababa",
+        "latitude": 9.02,
+        "longitude": 38.74,
+        "distance": "1.2 km away",
+        "status": "Open Now",
+        "phone": "+251-11-551-5004",
+        "imageUrl": "https://images.pexels.com/photos/14576855/pexels-photo-14576855.jpeg",
+        "services": [
+          "Cash Withdrawal & Deposit",
+          "Foreign Currency Exchange",
+          "Card Issuance",
+          "Loan & Mortgages Advisory"
+        ],
+        "hours": {
+          "weekdays": "8:00 AM - 6:00 PM",
+          "saturday": "8:00 AM - 12:00 PM",
+          "sunday": "Closed"
+        }
+      },
+      "addedAt": "2026-04-05T11:39:10.883854",
+      "id": "RSUz_S0Yrrc"
+    }
+  ],
+  "users": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}
