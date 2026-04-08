@@ -175,6 +175,21 @@
       "id": "RSUz_S0Yrrc"
     }
   ],
-  "users": [],
+  "users": [
+    {
+      "id": "user-1",
+      "name": "Test Account",
+      "email": "test@gmail.com",
+      "password": "123",
+      "mobile": "0963537662"
+    },
+    {
+      "id": "e12e",
+      "name": "gjh",
+      "email": "test2@gmail.com",
+      "password": "123",
+      "mobile": "5678678"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

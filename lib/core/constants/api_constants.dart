@@ -1,8 +1,8 @@
 class ApiConstants {
   // On Android emulator, 10.0.2.2 maps to the host machine's localhost.
   // Change to your machine's LAN IP (e.g. 192.168.x.x:3000) for a physical device.
-  static const String baseUrl =
-      'https://my-json-server.typicode.com/tkgereziher/branch_atm_locator';
+  // static const String baseUrl = 'http://localhost:3000';
+  static const String baseUrl = 'http://10.0.2.2:3000';
   static const int connectTimeout = 30000;
   static const int receiveTimeout = 30000;
 
